@@ -134,4 +134,15 @@ class ClientOrder:
 
 
 if __name__ == '__main__':
-    pass
+    tomato_soup = Dish('Tomato soup', 10)
+    burger = Dish('Burger', 30)
+
+    order1 = Order()
+    order1.add_dish(tomato_soup, 1)
+    order1.add_dish(burger, 2)
+
+    client_discount = 3
+    discount = Discount(client_discount)
+    client1 = ClientOrder('Ivan', order1, discount)
+
+    print(client1)

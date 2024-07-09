@@ -23,11 +23,9 @@ def main():
 
     # Task 2
     try:
-        tomato_soup = restaurant.Dish('Tomato soup', 10)
         onion_soup = restaurant.Dish('French onion soup', 15)
         salad = restaurant.Dish('Chicken Salad', 10)
         omelette = restaurant.Dish('Cheese omelette', 20)
-        burger = restaurant.Dish('Burger', 30)
         sandwich = restaurant.Dish('Chicken sandwich', 20)
 
         order1 = restaurant.Order()

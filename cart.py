@@ -72,7 +72,3 @@ class Cart:
                             self.__products.items()))
         res += f"\nTotal: {self.total()} UAH"
         return res
-
-
-if __name__ == "__main__":
-    pass
