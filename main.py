@@ -1,9 +1,10 @@
 import cart
 import restaurant
-from log import logger
 
 
 def main():
+
+    # Task 1
     try:
         pr_1 = cart.Product("Bread", 10)
         pr_2 = cart.Product("Milk", 20)
@@ -20,6 +21,7 @@ def main():
     except cart.ProductPriceError as e:
         print(e)
 
+    # Task 2
     try:
         tomato_soup = restaurant.Dish('Tomato soup', 10)
         onion_soup = restaurant.Dish('French onion soup', 15)
