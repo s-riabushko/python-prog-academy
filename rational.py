@@ -50,7 +50,7 @@ class Rational:
     def __str__(self):
         if self.a == 0:
             return '0'
-        int_part = self.a // self.b
+        int_part = abs(self.a) // self.b
         if int_part:
             self.a %= self.b
             return f"{int_part} {self.a}/{self.b}"
