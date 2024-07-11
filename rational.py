@@ -13,7 +13,7 @@ class Rational:
         if not isinstance(a | b, int):
             raise TypeError('numerator and denominator must be an integer')
         if b == 0:
-            raise ValueError('denominator must not equal zero')
+            raise ZeroDivisionError('Denominator must not equal zero')
         self.__gcd = math.gcd(a, b)
         self.a = a // self.__gcd
         self.b = b // self.__gcd
