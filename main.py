@@ -1,6 +1,7 @@
 import shop.product as shop_product
 import shop.cart as shop_cart
 import shop.cart_exception as shop_exception
+
 import restaurant.dish as rest_dish
 import restaurant.order as rest_order
 import restaurant.discount as rest_discount
@@ -8,10 +9,12 @@ import restaurant.client_order as rest_client_order
 import restaurant.restaurant_exception as rest_exception
 import time
 
+from rational import Rational
+
 
 def main():
-
     # Task 1
+    print("Task 1")
     try:
         pr_1 = shop_product.Product("Bread", 10)
         pr_2 = shop_product.Product("Milk", 20)
@@ -36,6 +39,7 @@ def main():
         print(e)
 
     # Task 2
+    print("Task 2")
     try:
         onion_soup = rest_dish.Dish('French onion soup', 15)
         salad = rest_dish.Dish('Chicken Salad', 10)
@@ -47,7 +51,7 @@ def main():
         order1 += sandwich
         order1 += omelette
         order1 += salad
-        time.sleep(0.5)
+        time.sleep(0.2)
         client_discount = float(input('Enter your discount(%): '))
         discount = rest_discount.Discount(client_discount)
         client1 = rest_client_order.ClientOrder('Ivan', order1, discount)
@@ -58,6 +62,16 @@ def main():
         print(e)
     except Exception as e:
         print(e)
+    time.sleep(0.2)
+
+    # Task 3
+    print("\nTask 3")
+    x = Rational(3, 11)
+    y = Rational(7, 8)
+    print(x < y)
+    print(x + y)
+    print(x - y)
+    print(x * y)
 
 
 if __name__ == '__main__':
