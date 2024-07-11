@@ -12,8 +12,8 @@ class Rational:
         """
         if not isinstance(a | b, int):
             raise TypeError('numerator and denominator must be an integer')
-        if b <= 0:
-            raise ValueError('denominator must be greater then zero')
+        if b == 0:
+            raise ValueError('denominator must not equal zero')
         self.__gcd = math.gcd(a, b)
         self.a = a // self.__gcd
         self.b = b // self.__gcd
@@ -31,19 +31,35 @@ class Rational:
     def __lt__(self, other):
         if not isinstance(other, Rational):
             return NotImplemented
-        return self.a * other.b < other.a * self.b
+        if self.a / self.b < 0 <= other.a / other.b:
+            return True
+        if self.a / self.b >= 0 > other.a / other.b:
+            return False
+        return abs(self.a) * abs(other.b) < abs(other.a) * abs(self.b)
 
     def __le__(self, other):
         if not isinstance(other, Rational):
             return NotImplemented
+        if self.a / self.b < 0 <= other.a / other.b:
+            return True
+        if self.a / self.b >= 0 > other.a / other.b:
+            return False
         return self.a * other.b <= other.a * self.b
 
     def __gt__(self, other):
         if not isinstance(other, Rational):
             return NotImplemented
+        if self.a / self.b < 0 <= other.a / other.b:
+            return False
+        if self.a / self.b >= 0 > other.a / other.b:
+            return True
         return self.a * other.b > other.a * self.b
 
     def __ge__(self, other):
+        if self.a / self.b < 0 <= other.a / other.b:
+            return False
+        if self.a / self.b >= 0 > other.a / other.b:
+            return True
         if not isinstance(other, Rational):
             return NotImplemented
         return self.a * other.b >= other.a * self.b
