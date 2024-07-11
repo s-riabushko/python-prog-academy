@@ -67,11 +67,14 @@ def main():
     # Task 3
     print("\nTask 3")
     x = Rational(3, 11)
-    y = Rational(7, 8)
-    print(x < y)
-    print(x + y)
-    print(x - y)
-    print(x * y)
+    y = Rational(-7, 8)
+    print(f"x = {x}")
+    print(f"y = {y}")
+    print(f"x >= y: {x >= y}")
+    print(f"x + y: {x + y}")
+    print(f"x - y: {x - y}")
+    print(f"y - x: {y - x}")
+    print(f"x * y: {x * y}")
 
 
 if __name__ == '__main__':

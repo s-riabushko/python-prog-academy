@@ -32,27 +32,26 @@ class Rational:
     def __add__(self, other):
         num = self.a * other.b + other.a * self.b
         denom = self.b * other.b
-        gcd = math.gcd(num, denom)
-        return Rational(num // gcd, denom // gcd)
+        return Rational(num, denom)
 
     def __sub__(self, other):
         num = self.a * other.b - other.a * self.b
         denom = self.b * other.b
-        gcd = math.gcd(num, denom)
-        return Rational(num // gcd, denom // gcd)
+        return Rational(num, denom)
 
     def __mul__(self, other):
         num = self.a * other.a
         denom = self.b * other.b
-        gcd = math.gcd(num, denom)
-        return Rational(num // gcd, denom // gcd)
+        return Rational(num, denom)
 
     def __str__(self):
         if self.a == 0:
             return '0'
+        if self.a == self.b:
+            return '1'
         int_part = abs(self.a) // self.b
         if int_part:
-            self.a %= self.b
-            return f"{int_part} {self.a}/{self.b}"
+            a = abs(self.a) % self.b
+            return f"{'-' if self.a < 0 else ''}{int_part} {a}/{self.b}"
         else:
             return f"{self.a}/{self.b}"
