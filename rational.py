@@ -2,7 +2,14 @@ import math
 
 
 class Rational:
+    """
+    Class Rational for compare, addition, multiplication and subtraction of simple fractions
+    """
     def __init__(self, a: int, b: int):
+        """
+        :param a: numerator (integer)
+        :param b: denominator (positive integer)
+        """
         if not isinstance(a | b, int):
             raise TypeError('numerator and denominator must be an integer')
         if b <= 0:
@@ -12,34 +19,52 @@ class Rational:
         self.b = b // self.__gcd
 
     def __eq__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a == other.a and self.b == other.b
 
     def __ne__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a != other.a or self.b != other.b
 
     def __lt__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a * other.b < other.a * self.b
 
     def __le__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a * other.b <= other.a * self.b
 
     def __gt__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a * other.b > other.a * self.b
 
     def __ge__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         return self.a * other.b >= other.a * self.b
 
     def __add__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         num = self.a * other.b + other.a * self.b
         denom = self.b * other.b
         return Rational(num, denom)
 
     def __sub__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         num = self.a * other.b - other.a * self.b
         denom = self.b * other.b
         return Rational(num, denom)
 
     def __mul__(self, other):
+        if not isinstance(other, Rational):
+            return NotImplemented
         num = self.a * other.a
         denom = self.b * other.b
         return Rational(num, denom)
