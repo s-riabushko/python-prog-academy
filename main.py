@@ -13,14 +13,12 @@ from rational import Rational
 
 
 def main():
-    # Task 1
-    print("Task 1")
+
     try:
         pr_1 = shop_product.Product("Bread", 10)
         pr_2 = shop_product.Product("Milk", 20)
         pr_3 = shop_product.Product("Butter", 30)
         pr_4 = shop_product.Product("Olive oil", 25)
-        pr_5 = shop_product.Product("Sausage", 50)
         cart_1 = shop_cart.Cart()
         cart_1.add_product(pr_1, 2)
         cart_1.add_product(pr_2, 3)
@@ -28,31 +26,49 @@ def main():
         cart_2 = shop_cart.Cart()
         cart_2.add_product(pr_3, 3)
         cart_2.add_product(pr_4, 2)
-        cart_2.add_product(pr_5, 2)
-        print(cart_1, '\n')
-        print(cart_2, '\n')
         cart_1 += cart_2
-        print(cart_1, '\n')
+
+        # Task 1
+        iter_cart = iter(cart_1)
+        print(' x '.join(map(str, next(iter_cart))))
+        print(' x '.join(map(str, next(iter_cart))))
+        print(' x '.join(map(str, next(iter_cart))))
+        print(' x '.join(map(str, next(iter_cart))))
+        print()
+
+        for product, quantity in cart_1:
+            print(f'{product.name} by {product.price} UAH: {quantity}')
+        # end of Task 1
+
     except shop_exception.ProductPriceError as e:
         print(e)
     except Exception as e:
         print(e)
 
-    # Task 2
-    print("Task 2")
     try:
         onion_soup = rest_dish.Dish('French onion soup', 15)
         salad = rest_dish.Dish('Chicken Salad', 10)
         omelette = rest_dish.Dish('Cheese omelette', 20)
         sandwich = rest_dish.Dish('Chicken sandwich', 20)
         order1 = rest_order.Order()
-        order1.add_dish(onion_soup, 2)
+        order1.add_dish(omelette, 2)
+        order1.add_dish(onion_soup, 3)
+        order1.add_dish(salad, 1)
         order1.add_dish(sandwich, 1)
-        order1 += sandwich
-        order1 += omelette
-        order1 += salad
-        time.sleep(0.2)
-        client_discount = float(input('Enter your discount(%): '))
+
+        # Task 2
+        iter_order = iter(order1)
+        print(' x '.join(map(str, next(iter_order))))
+        print(' x '.join(map(str, next(iter_order))))
+        for dish, quantity in order1:
+            print(f'{dish} X {quantity}')
+
+        order1_rev = order1[::-1]
+        print(type(order1_rev))
+        print('\n'.join(map(lambda item: f'{item[0].name}: {item[1]}', order1_rev)))
+        # end of Task 2
+
+        client_discount = 15
         discount = rest_discount.Discount(client_discount)
         client1 = rest_client_order.ClientOrder('Ivan', order1, discount)
         print(client1)
@@ -62,21 +78,7 @@ def main():
         print(e)
     except Exception as e:
         print(e)
-    time.sleep(0.2)
-
-    # Task 3
-    print("\nTask 3")
-    x = Rational(3, 11)
-    y = Rational(-7, 8)
-    print(f"x = {x}")
-    print(f"y = {y}")
-    print(f"x >= y: {x >= y}")
-    print(f"x + y: {x + y}")
-    print(f"x - y: {x - y}")
-    print(f"y - x: {y - x}")
-    print(f"x * y: {x * y}")
 
 
 if __name__ == '__main__':
     main()
-
