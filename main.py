@@ -1,83 +1,158 @@
-import shop.product as shop_product
-import shop.cart as shop_cart
-import shop.cart_exception as shop_exception
+from datetime import date, timedelta  # used in Task 6
 
-import restaurant.dish as rest_dish
-import restaurant.order as rest_order
-import restaurant.discount as rest_discount
-import restaurant.client_order as rest_client_order
-import restaurant.restaurant_exception as rest_exception
-import time
 
-from rational import Rational
+# Task 1
+def geometric(n: int):
+    """
+    Function for return each term of a geometric progression
+    :param n: number of terms of a geometric progression
+    :return: integer
+    """
+    x = 1
+    yield x
+    for item in range(1, n+1):
+        x = x * (item + 1)
+        yield x
+
+
+# Task 2
+def my_range(*args: int):
+    """
+    Analog of built-in function ragne()
+    :param args: (stop), (start, stop) or (start, stop, step). For step can be used negative value.
+    :return: range of integer numbers
+    """
+    start = 0
+    step = 1
+    if not len(args) or len(args) > 3:
+        msg = f'my_range() takes either 1, 2 or 3 arguments, {len(args)} given'
+        raise TypeError(msg)
+    for arg in args:
+        if not isinstance(arg, int):
+            raise TypeError('Only integers can be specified')
+
+    if len(args) == 1:
+        stop = args[0]
+    elif len(args) == 2:
+        start = args[0]
+        stop = args[1]
+    else:
+        start = args[0]
+        stop = args[1]
+        step = args[2]
+        if step == 0:
+            raise ValueError("Step cannot be equal of zero")
+
+    if start < 0 or stop < 0:
+        raise ValueError("'start' and 'stop' can be only positive integers")
+    if start > stop:
+        raise ValueError("'start' cannot be greater then 'stop'")
+
+    if step < 0:
+        start, stop = stop - 1, start - 1
+    range_num = start
+    while range_num != stop:
+        if step > 0 and range_num >= stop or step < 0 and range_num <= stop:
+            break
+        yield range_num
+        range_num += step
+
+
+# Task 3
+def prime_numbers(end_num: int):
+    """
+    Function to find and return every prime number
+    :param end_num: max value to search for prime numbers.
+    :return: range of prime numbers
+    """
+    if not isinstance(end_num, int):
+        raise TypeError('num_count can be only integer')
+    if end_num <= 0:
+        raise ValueError('num_count can be only positive integer')
+
+    for prime_num in range(2, end_num + 1):
+        for i in range(2, prime_num):
+            if (prime_num % i) == 0:
+                break
+        else:
+            yield prime_num
+
+
+# Task 4
+# function range() is used
+
+
+# Task 5
+def fibonacci(num_count: int):
+    """
+    Returns the given number of Fibonacci numbers
+    :param num_count: count of Fibonacci numbers
+    :return: range of Fibonacci numbers starts from 0 to num_count
+    """
+    if not isinstance(num_count, int):
+        raise TypeError('num_count can be only integer')
+    if num_count <= 0:
+        raise ValueError('num_count can be only positive integer')
+    a = 0
+    yield a
+    b = 1
+    yield b
+    for num in range(b, num_count - 1):
+        a, b = b, b + a
+        yield b
+
+
+# Task 6
+def dates(start_date: str, end_date: str):
+    """
+    Returns every date in a given range
+    :param start_date: start date in ISO format
+    :param end_date: end date in ISO format
+    :return: every date in a given range
+    """
+    date.fromisoformat(start_date)
+    date.fromisoformat(end_date)
+    yield start_date
+    step = 1
+    end = start_date
+    while end != end_date:
+        end = str(date.fromisoformat(end) + timedelta(days=step))
+        yield end
 
 
 def main():
+    print(f"\n# Task 1:")
+    num_len = 4
+    x = geometric(num_len)
+    print(next(x))
+    print(next(x))
+    print(next(x))
+    print(next(x))
 
-    try:
-        pr_1 = shop_product.Product("Bread", 10)
-        pr_2 = shop_product.Product("Milk", 20)
-        pr_3 = shop_product.Product("Butter", 30)
-        pr_4 = shop_product.Product("Olive oil", 25)
-        cart_1 = shop_cart.Cart()
-        cart_1.add_product(pr_1, 2)
-        cart_1.add_product(pr_2, 3)
-        cart_1.add_product(pr_3, 2)
-        cart_2 = shop_cart.Cart()
-        cart_2.add_product(pr_3, 3)
-        cart_2.add_product(pr_4, 2)
-        cart_1 += cart_2
+    print(f"\n# Task 2:")
+    for item in my_range(11, 18):
+        print(item)
 
-        # Task 1
-        iter_cart = iter(cart_1)
-        print(' x '.join(map(str, next(iter_cart))))
-        print(' x '.join(map(str, next(iter_cart))))
-        print(' x '.join(map(str, next(iter_cart))))
-        print(' x '.join(map(str, next(iter_cart))))
-        print()
+    print(f"\n# Task 3:")
+    prime_len = 100
+    prime_num = [item for item in prime_numbers(prime_len)]
+    print(prime_num)
 
-        for product, quantity in cart_1:
-            print(f'{product.name} by {product.price} UAH: {quantity}')
-        # end of Task 1
+    print(f"\n# Task 4:")
+    list_len = 25
+    cube_list = [item ** 3 for item in range(list_len)]
+    print(cube_list)
 
-    except shop_exception.ProductPriceError as e:
-        print(e)
-    except Exception as e:
-        print(e)
+    print(f"\n# Task 5:")
+    num_len = 20
+    fibonacci_list = [item for item in fibonacci(num_len)]
+    print(fibonacci_list)
 
-    try:
-        onion_soup = rest_dish.Dish('French onion soup', 15)
-        salad = rest_dish.Dish('Chicken Salad', 10)
-        omelette = rest_dish.Dish('Cheese omelette', 20)
-        sandwich = rest_dish.Dish('Chicken sandwich', 20)
-        order1 = rest_order.Order()
-        order1.add_dish(omelette, 2)
-        order1.add_dish(onion_soup, 3)
-        order1.add_dish(salad, 1)
-        order1.add_dish(sandwich, 1)
-
-        # Task 2
-        iter_order = iter(order1)
-        print(' x '.join(map(str, next(iter_order))))
-        print(' x '.join(map(str, next(iter_order))))
-        for dish, quantity in order1:
-            print(f'{dish} X {quantity}')
-
-        order1_rev = order1[::-1]
-        print(type(order1_rev))
-        print('\n'.join(map(lambda item: f'{item[0].name}: {item[1]}', order1_rev)))
-        # end of Task 2
-
-        client_discount = 15
-        discount = rest_discount.Discount(client_discount)
-        client1 = rest_client_order.ClientOrder('Ivan', order1, discount)
-        print(client1)
-    except rest_exception.DiscountValueError as e:
-        print(e)
-    except rest_exception.PriceValueError as e:
-        print(e)
-    except Exception as e:
-        print(e)
+    print(f"\n# Task 6:")
+    start_date = '2024-07-18'
+    end_date = '2024-07-21'
+    date_list = [item for item in dates(start_date, end_date)]
+    print(date_list)
 
 
 if __name__ == '__main__':
