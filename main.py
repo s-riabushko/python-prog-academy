@@ -22,8 +22,6 @@ def my_range(*args: int):
     :param args: (stop), (start, stop) or (start, stop, step). For step can be used negative value.
     :return: range of integer numbers
     """
-    start = 0
-    step = 1
     if not len(args) or len(args) > 3:
         msg = f'my_range() takes either 1, 2 or 3 arguments, {len(args)} given'
         raise TypeError(msg)
@@ -31,6 +29,8 @@ def my_range(*args: int):
         if not isinstance(arg, int):
             raise TypeError('Only integers can be specified')
 
+    start = 0
+    step = 1
     if len(args) == 1:
         stop = args[0]
     elif len(args) == 2:
