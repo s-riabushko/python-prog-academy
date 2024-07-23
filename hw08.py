@@ -1,13 +1,5 @@
 # Task 1
 
-def arithmetic(start, stop, d):
-    return start + d * (stop - 1)
-
-
-def geometric(start, stop, q):
-    return start * q ** (stop - 1)
-
-
 def user_sequence(func, start_num, step, count):
     yield start_num
     n = start_num
