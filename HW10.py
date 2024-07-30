@@ -111,17 +111,18 @@ class PaymentProcessor:
         self.payment_method.pay(self, self.amount)
 
     def __str__(self):
-        return f"Allowed payment methods: {', '.join(map(str, self.__payment_methods))}"
+        return (f"Amount: {self.amount}. Selected payment method: {self.payment_method.__name__}\n"
+                f"Allowed payment methods: {', '.join(map(str, self.__payment_methods))}")
 
 
 credit_card = CreditCard
 bank_transfer = BankTransfer
 online_wallet = OnlineWallet
 
-need_pay = PaymentProcessor(150, credit_card)
-need_pay.make_payment()
+need_pay1 = PaymentProcessor(150, credit_card)
+need_pay1.make_payment()
 
-need_pay = PaymentProcessor(300, bank_transfer)
-need_pay.make_payment()
+need_pay2 = PaymentProcessor(300, bank_transfer)
+need_pay2.make_payment()
 
-print(need_pay)
+print(need_pay2)
