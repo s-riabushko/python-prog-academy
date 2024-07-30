@@ -6,8 +6,9 @@ import time
 def decorator_1(func):
     def wrapper():
         print('Decorator before function')
-        func()
+        res = func()
         print('Decorator after function')
+        return res
     return wrapper
 
 
@@ -90,25 +91,29 @@ print(res_4)
 
 
 # Task 5
-def decorator_5(func):
-    def wrapper(*args, **kwargs):
-        f = open("res5.txt", "a")
-        current_time = datetime.datetime.now()
-        f_args, f_kwargs = args, kwargs
-        res = func(*args, **kwargs)
-        f.write(f"{current_time}: {func.__name__} | {f_args} | {f_kwargs} | {res}\n")
-        f.close()
-        return res
-    return wrapper
+import logging
 
 
-@decorator_5
+def decorator_5_wrap(file_name):
+    def decorator_5(func):
+        def wrapper(*args, **kwargs):
+            logging.basicConfig(filename=file_name, level=logging.INFO)
+            logging.info(f'Function {func.__name__} is called')
+            res = func(*args, **kwargs)
+            logging.info(f'Function {func.__name__} is finished')
+            return res
+
+        return wrapper
+    return decorator_5
+
+
+@decorator_5_wrap('res_5.txt')
 def func_5_1(text, name='Ivan'):
     time.sleep(0.5)
     return f'{text}, {name}'
 
 
-@decorator_5
+@decorator_5_wrap('res_5.txt')
 def func_5_2(action, x, y):
     if action == '+':
         return x + y
@@ -124,14 +129,14 @@ print(res_5_1, res_5_2)
 # Task 6
 def decorator_6_wrap(exec_limit):
     def decorator_6(func):
-        exec_count = 0
 
         def wrapper(*args, **kwargs):
-            nonlocal exec_count
-            if exec_count >= exec_limit:
+            if wrapper.exec_count >= exec_limit:
                 raise RuntimeError('function call limit reached')
-            exec_count += 1
+            wrapper.exec_count += 1
             return func(*args, **kwargs)
+
+        wrapper.exec_count = 0
         return wrapper
     return decorator_6
 
