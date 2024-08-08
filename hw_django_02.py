@@ -9,7 +9,7 @@ print(res)
 
 # Task 2
 card_number = input('Enter a card number: ')
-pattern = r'(\d{4}-){3}\d{4}'
+pattern = r'^(\d{4}-){3}\d{4}$'
 res = re.fullmatch(pattern, card_number)
 
 if res:
